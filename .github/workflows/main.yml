@@ -20,7 +20,7 @@ jobs:
         run: docker build clang --tag henne90gen/clang:clang-12 --tag henne90gen/clang:clang-latest
 
       - name: Build Image gtk
-        run: docker build gtk --tag henne90gen/gtk:gtk-4 --tag henne90gen/gtk:gtk-latest
+        run: docker build gtk --tag henne90gen/gtk:gtk-4.4 --tag henne90gen/gtk:gtk-4 --tag henne90gen/gtk:gtk-latest
 
       - name: Upload Image clang
         run: docker push henne90gen/clang -a
