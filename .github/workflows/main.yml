@@ -1,0 +1,30 @@
+name: Build and Upload Images
+
+on: push
+
+jobs:
+  build:
+    name: "Build and Upload Images"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build Image clang
+        run: docker build clang --tag henne90gen/clang:clang-12 --tag henne90gen/clang:clang-latest
+
+      - name: Build Image gtk
+        run: docker build gtk --tag henne90gen/gtk:gtk-4 --tag henne90gen/gtk:gtk-latest
+
+      - name: Upload Image clang
+        run: docker push henne90gen/clang
+
+      - name: Upload Image gtk
+        run: docker push henne90gen/gtk
