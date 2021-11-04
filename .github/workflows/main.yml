@@ -17,7 +17,7 @@ jobs:
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
       - name: Build Image clang
-        run: docker build clang --tag henne90gen/clang:clang-12 --tag henne90gen/clang:clang-latest
+        run: docker build clang --tag henne90gen/clang:clang-13 --tag henne90gen/clang:clang-latest
 
       - name: Build Image gtk
         run: docker build gtk --tag henne90gen/gtk:gtk-4.4 --tag henne90gen/gtk:gtk-4 --tag henne90gen/gtk:gtk-latest
