@@ -30,5 +30,5 @@ RUN apt-get update -y && apt-get upgrade -y && \
     wget https://download.gnome.org/sources/gtk/4.4/gtk-4.4.0.tar.xz && tar -xvf gtk-4.4.0.tar.xz && \
     cd gtk-4.4.0 && meson _build . && cd _build && ninja install && \
     wget https://download.gnome.org/sources/gtkmm/4.4/gtkmm-4.4.0.tar.xz && tar -xvf gtkmm-4.4.0.tar.xz && \
-    apt-get install -y doxygen graphviz xsltproc m4 mm-common libxml-parser-perl && \
+    apt-get install -y doxygen graphviz xsltproc m4 mm-common libcairomm-1.0-dev libxml-parser-perl && \
     cd gtkmm-4.4.0 && meson --libdir lib _build . && cd _build && ninja install
