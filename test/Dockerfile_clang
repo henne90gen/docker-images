@@ -1,0 +1,5 @@
+FROM henne90gen/clang:clang-13
+
+RUN clang --version
+COPY clang_main.cpp main.cpp
+RUN clang++ main.cpp

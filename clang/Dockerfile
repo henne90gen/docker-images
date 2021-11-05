@@ -1,7 +1,9 @@
-FROM debian:bullseye-20211011-slim
+FROM debian:bookworm-20211011-slim
 
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y wget lsb-release software-properties-common gnupg apt-transport-https ca-certificates && \
-    wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && ./llvm.sh 13 && \
-    apt-get install -y cmake clang-tools-13 clang-13-doc libclang-13-dev ninja-build
+RUN apt-get update -y
+RUN apt-get install -y cmake ninja-build wget lsb-release software-properties-common gnupg apt-transport-https ca-certificates && \
+    wget -q https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && ./llvm.sh 13 && rm llvm.sh && \
+    apt-get purge -y wget lsb-release software-properties-common gnupg apt-transport-https ca-certificates && \
+    apt-get autoremove -y
+RUN ln -s /usr/bin/clang-13 /usr/bin/clang
+RUN ln -s /usr/bin/clang++-13 /usr/bin/clang++
