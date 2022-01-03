@@ -1,4 +1,4 @@
-FROM henne90gen/clang:clang-13 AS build
+FROM henne90gen/clang:13 AS build
 
 RUN apt-get install -y libgtk-4-dev wget git python3-pip
 RUN pip3 install meson
