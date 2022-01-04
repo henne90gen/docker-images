@@ -1,0 +1,14 @@
+version: '3'
+services:
+  webdav:
+    image: henne90gen/webdav:latest
+    hostname: webdav
+    environment:
+      - APACHE_SERVER_NAME=localhost
+      - WWW_DATA_UID=1000
+      - WWW_DATA_GID=1000
+    volumes:
+      - ./auth/apache2:/etc/auth/apache2
+      - ./testuser:/var/www/testuser
+    ports:
+      - "8080:80"
