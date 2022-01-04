@@ -16,20 +16,11 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
-      - name: Build Image clang
-        run: make build-clang
+      - name: Build Images
+        run: make build
 
-      - name: Test Image clang
-        run: make test-clang
+      - name: Test Images
+        run: make test
 
-      - name: Build Image gtk
-        run: make build-gtk
-
-      - name: Test Image gtk
-        run: make test-gtk
-
-      - name: Upload Image clang
-        run: docker push henne90gen/clang -a
-
-      - name: Upload Image gtk
-        run: docker push henne90gen/gtk -a
+      - name: Push Images
+        run: make push
