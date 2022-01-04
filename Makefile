@@ -6,7 +6,7 @@ build-gtk:
 build-webdav:
 	docker build webdav --tag henne90gen/webdav:3.12.7 --tag henne90gen/webdav:latest
 
-test: test-clang test-gtk
+test: test-clang test-gtk test-webdav
 test-clang:
 	docker build clang/test
 test-gtk:
