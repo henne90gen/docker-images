@@ -12,6 +12,11 @@ Basic image with clang pre-installed.
 ### GTK
 
 This image contains all dependencies necessary to build GTK applications.
+TODO find out how to build gtkmm without building all the tests
+
+### OpenGL
+
+This image contains dependencies and tools to build and run OpenGL headless applications.
 
 ### TODO
 
