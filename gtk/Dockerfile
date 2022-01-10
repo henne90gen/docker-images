@@ -11,8 +11,11 @@ RUN apt-get install -y \
     m4 \
     mm-common \
     libcairomm-1.0-dev \
-    libxml-parser-perl
-RUN cd gtkmm-4.4.0 && \
+    libxml-parser-perl && \
+    cd gtkmm-4.4.0 && \
     meson --libdir lib _build . && \
     cd _build && \
-    ninja install
+    ninja install \
+    cd ../.. && \
+    rm -rf gtkmm-4.4.0 gtkmm-4.4.0.tar.xz \
+    apt-get uninstall -y doxygen graphviz
