@@ -1,4 +1,4 @@
-build: build-clang build-gtk build-webdav
+build: build-clang build-gtk build-opengl build-webdav
 build-clang:
 	docker build clang --tag henne90gen/clang:13 --tag henne90gen/clang:latest
 build-gtk:
@@ -8,7 +8,7 @@ build-opengl:
 build-webdav:
 	docker build webdav --tag henne90gen/webdav:3.12.7 --tag henne90gen/webdav:latest
 
-test: test-clang test-gtk test-webdav
+test: test-clang test-gtk test-opengl test-webdav
 test-clang:
 	docker build clang/test
 test-gtk:
@@ -18,7 +18,7 @@ test-opengl:
 test-webdav:
 	./webdav/test/test.sh
 
-push: push-clang push-gtk push-webdav
+push: push-clang push-gtk push-opengl push-webdav
 push-clang:
 	docker push henne90gen/clang -a
 push-gtk:
