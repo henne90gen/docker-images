@@ -2,7 +2,7 @@ build: build-clang build-gtk build-opengl build-webdav
 build-clang:
 	docker build clang --tag henne90gen/clang:13 --tag henne90gen/clang:latest
 build-gtk:
-	docker build gtk --tag henne90gen/gtk:4.4 --tag henne90gen/gtk:latest
+	docker build gtk --tag henne90gen/gtk:4.6 --tag henne90gen/gtk:latest
 build-opengl:
 	docker build opengl --tag henne90gen/opengl:3.1 --tag henne90gen/opengl:latest
 build-webdav:
