@@ -19,8 +19,5 @@ jobs:
       - name: Build Image
         run: make build-netcup-dyndns
 
-      - name: Test Image
-        run: make test-netcup-dyndns
-
       - name: Push Image
         run: make push-netcup-dyndns
