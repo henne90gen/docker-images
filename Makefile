@@ -7,7 +7,7 @@ build-opengl:
 build-webdav:
 	docker build webdav --tag henne90gen/webdav:3.12.7 --tag henne90gen/webdav:latest
 build-netcup-dyndns:
-	docker build netcup-dyndns --tag henne90gen/netcup-dyndns:1.1 --tag henne90gen/netcup-dyndns:latest
+	docker build netcup-dyndns --tag henne90gen/netcup-dyndns:1.2 --tag henne90gen/netcup-dyndns:latest
 
 test-clang:
 	docker build clang/test
