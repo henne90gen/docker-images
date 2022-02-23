@@ -29,3 +29,8 @@ This image contains dependencies and tools to build and run OpenGL headless appl
 ### WebDAV
 
 A simple WebDAV server based on Apache2 for serving a local directory over the web.
+
+### Netcup DynDNS
+
+The code for this image is copied from [dynamic-dns-netcup-api](https://github.com/stecklars/dynamic-dns-netcup-api).
+It has been modified to allow configuration through environment variables.
