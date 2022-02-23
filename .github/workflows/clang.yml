@@ -1,10 +1,10 @@
-name: Build and Upload Images
+name: clang
 
 on: push
 
 jobs:
   build:
-    name: "Build and Upload Images"
+    name: "Build and Upload Image"
     runs-on: ubuntu-latest
 
     steps:
@@ -16,11 +16,11 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
-      - name: Build Images
-        run: make build
+      - name: Build Image
+        run: make build-clang
 
-      - name: Test Images
-        run: make test
+      - name: Test Image
+        run: make test-clang
 
-      - name: Push Images
-        run: make push
+      - name: Push Image
+        run: make push-clang

@@ -4,6 +4,5 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY . /app
-RUN mv config.env.php config.php
 
 CMD [ "php", "./update.php" ]
