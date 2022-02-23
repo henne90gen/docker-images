@@ -1,4 +1,4 @@
-build: build-clang build-gtk build-opengl build-webdav
+build: build-clang build-gtk build-opengl build-webdav build-netcup-dyndns
 build-clang:
 	docker build clang --tag henne90gen/clang:13 --tag henne90gen/clang:latest
 build-gtk:
@@ -7,6 +7,8 @@ build-opengl:
 	docker build opengl --tag henne90gen/opengl:3.1 --tag henne90gen/opengl:latest
 build-webdav:
 	docker build webdav --tag henne90gen/webdav:3.12.7 --tag henne90gen/webdav:latest
+build-netcup-dyndns:
+	docker build netcup-dyndns --tag henne90gen/netcup-dyndns:1.0 --tag henne90gen/netcup-dyndns:latest
 
 test: test-clang test-gtk test-opengl test-webdav
 test-clang:
@@ -18,7 +20,7 @@ test-opengl:
 test-webdav:
 	./webdav/test/test.sh
 
-push: push-clang push-gtk push-opengl push-webdav
+push: push-clang push-gtk push-opengl push-webdav push-netcup-dyndns
 push-clang:
 	docker push henne90gen/clang -a
 push-gtk:
@@ -27,3 +29,5 @@ push-opengl:
 	docker push henne90gen/opengl -a
 push-webdav:
 	docker push henne90gen/webdav -a
+push-netcup-dyndns:
+	docker push henne90gen/netcup-dyndns -a
