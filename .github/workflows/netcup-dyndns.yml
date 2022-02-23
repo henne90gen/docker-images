@@ -1,4 +1,4 @@
-name: webdav
+name: netcup-dyndns
 
 on: push
 
@@ -17,10 +17,10 @@ jobs:
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
       - name: Build Image
-        run: make build-webdav
+        run: make build-netcup-dyndns
 
       - name: Test Image
-        run: make test-webdav
+        run: make test-netcup-dyndns
 
       - name: Push Image
-        run: make push-webdav
+        run: make push-netcup-dyndns
