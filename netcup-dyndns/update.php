@@ -9,6 +9,11 @@ outputStdout("Running dynamic DNS client for netcup 3.0");
 outputStdout("This script is not affiliated with netcup.");
 outputStdout("=============================================\n");
 
+outputStdout(sprintf('CUSTOMERNR: "%s"', CUSTOMERNR));
+outputStdout(sprintf('APIKEY: "%s"', APIKEY));
+outputStdout(sprintf('APIPASSWORD: "%s"', APIPASSWORD));
+outputStdout(sprintf('DOMAINLIST: "%s"', DOMAINLIST));
+
 if (! _is_curl_installed()) {
     outputStderr("cURL PHP extension is not installed. Please install the cURL PHP extension, otherwise the script will not work. Exiting.");
     exit(1);
