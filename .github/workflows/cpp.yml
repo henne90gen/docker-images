@@ -1,0 +1,72 @@
+name: cpp
+
+on: push
+
+jobs:
+  clang:
+    name: "Build and Upload Clang Image"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: docker login
+        env:
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u henne90gen -p $DOCKER_PASSWORD
+
+      - name: Build Image
+        run: make build-clang
+
+      - name: Test Image
+        run: make test-clang
+
+      - name: Push Image
+        run: make push-clang
+
+  opengl:
+    name: "Build and Upload OpenGL Image"
+    runs-on: ubuntu-latest
+    needs: clang
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: docker login
+        env:
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u henne90gen -p $DOCKER_PASSWORD
+
+      - name: Build Image
+        run: make build-opengl
+
+      - name: Test Image
+        run: make test-opengl
+
+      - name: Push Image
+        run: make push-opengl
+
+  gtk:
+    name: "Build and Upload GTK Image"
+    runs-on: ubuntu-latest
+    needs: clang
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: docker login
+        env:
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u henne90gen -p $DOCKER_PASSWORD
+
+      - name: Build Image
+        run: make build-gtk
+
+      - name: Test Image
+        run: make test-gtk
+
+      - name: Push Image
+        run: make push-gtk
