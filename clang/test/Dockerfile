@@ -1,4 +1,4 @@
-FROM henne90gen/clang:13
+FROM henne90gen/clang:14
 
 RUN clang --version
 COPY main.cpp main.cpp

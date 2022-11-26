@@ -1,6 +1,6 @@
-FROM henne90gen/clang:13 AS build
+FROM henne90gen/clang:14 AS build
 
-RUN apt-get install -y libgtk-4-dev wget git python3-pip && \
+RUN apt-get install -y libgtk-4-dev wget git python3-pip libsigc++-3.0-dev && \
     pip3 install meson && \
     apt-get install -y \
     doxygen \
@@ -9,42 +9,34 @@ RUN apt-get install -y libgtk-4-dev wget git python3-pip && \
     m4 \
     mm-common \
     libxml-parser-perl && \
-    wget -q https://www.cairographics.org/releases/cairomm-1.16.1.tar.xz && tar -xf cairomm-1.16.1.tar.xz && \
-    cd cairomm-1.16.1 && \
+    wget -q https://www.cairographics.org/releases/cairomm-1.16.2.tar.xz && tar -xf cairomm-1.16.2.tar.xz && \
+    cd cairomm-1.16.2 && \
     meson --libdir lib _build . && \
     cd _build && \
     ninja install && \
     cd ../.. && \
-    rm -rf cairomm-1.16.1 cairomm-1.16.1.tar.xz && \
-    wget -q https://download.gnome.org/sources/gtkmm/4.6/gtkmm-4.6.0.tar.xz && tar -xf gtkmm-4.6.0.tar.xz && \
-    cd gtkmm-4.6.0 && \
+    rm -rf cairomm-1.16.2 cairomm-1.16.2.tar.xz && \
+    wget -q https://download.gnome.org/sources/gtkmm/4.8/gtkmm-4.8.0.tar.xz && tar -xf gtkmm-4.8.0.tar.xz && \
+    cd gtkmm-4.8.0 && \
     meson --libdir lib _build . && \
     cd _build && \
     ninja install && \
     cd ../.. && \
-    rm -rf gtkmm-4.6.0 gtkmm-4.6.0.tar.xz && \
+    rm -rf gtkmm-4.8.0 gtkmm-4.8.0.tar.xz && \
     pip3 uninstall -y meson && \
     apt-get purge -y doxygen graphviz wget python3-pip && \
     apt-get autoremove -y
 
-# RUN apt-get install -y \
-#     doxygen \
-#     graphviz \
-#     xsltproc \
-#     m4 \
-#     mm-common \
-#     libxml-parser-perl
-
-# RUN wget -q https://www.cairographics.org/releases/cairomm-1.16.1.tar.xz && tar -xf cairomm-1.16.1.tar.xz
-# RUN cd cairomm-1.16.1 && \
+# RUN wget -q https://www.cairographics.org/releases/cairomm-1.16.2.tar.xz && tar -xf cairomm-1.16.2.tar.xz
+# RUN cd cairomm-1.16.2 && \
 #     meson --libdir lib _build .
-# RUN cd cairomm-1.16.1/_build && \
+# RUN cd cairomm-1.16.2/_build && \
 #     ninja install
 
-# RUN wget -q https://download.gnome.org/sources/gtkmm/4.4/gtkmm-4.6.0.tar.xz && tar -xf gtkmm-4.6.0.tar.xz
-# RUN cd gtkmm-4.6.0 && \
+# RUN wget -q https://download.gnome.org/sources/gtkmm/4.8/gtkmm-4.8.0.tar.xz && tar -xf gtkmm-4.8.0.tar.xz
+# RUN cd gtkmm-4.8.0 && \
 #     meson --libdir lib _build .
-# RUN cd gtkmm-4.6.0/_build && \
+# RUN cd gtkmm-4.8.0/_build && \
 #     ninja install
 
 # 2.68GB

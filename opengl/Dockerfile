@@ -1,7 +1,5 @@
-FROM henne90gen/clang:13
+FROM henne90gen/clang:14
 
-RUN mkdir /app
-WORKDIR /app
 RUN apt-get install -y \
     libgl1-mesa-dev \
     libglu1-mesa-dev \
