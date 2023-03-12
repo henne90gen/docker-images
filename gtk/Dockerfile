@@ -15,7 +15,7 @@ RUN apt-get install -y libgtk-4-dev libcairo2-dev wget git python3-pip libsigc++
     apt-get install -y doxygen graphviz xsltproc m4 mm-common libxml-parser-perl && \
     wget -q https://www.cairographics.org/releases/cairomm-${CAIROMM_VERSION}.tar.xz && tar -xf cairomm-${CAIROMM_VERSION}.tar.xz && \
     cd cairomm-${CAIROMM_VERSION} && \
-    meson --libdir lib _build . && \
+    meson setup --libdir lib _build . && \
     cd _build && \
     ninja install && \
     cd ../.. && \
@@ -27,6 +27,6 @@ RUN apt-get install -y libgtk-4-dev libcairo2-dev wget git python3-pip libsigc++
     ninja install && \
     cd ../.. && \
     rm -rf gtkmm-${GTKMM_VERSION}.0 gtkmm-${GTKMM_VERSION}.0.tar.xz && \
-    pip3 uninstall -y meson && \
+    pip3 uninstall -y meson --break-system-packages && \
     apt-get purge -y doxygen graphviz wget python3-pip && \
     apt-get autoremove -y
