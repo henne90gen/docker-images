@@ -11,7 +11,7 @@ ARG CAIROMM_VERSION=1.16.2
 ENV CAIROMM_VERSION=${CAIROMM_VERSION}
 
 RUN apt-get install -y libgtk-4-dev libcairo2-dev wget git python3-pip libsigc++-3.0-dev && \
-    pip3 install meson && \
+    pip3 install meson --break-system-packages && \
     apt-get install -y doxygen graphviz xsltproc m4 mm-common libxml-parser-perl && \
     wget -q https://www.cairographics.org/releases/cairomm-${CAIROMM_VERSION}.tar.xz && tar -xf cairomm-${CAIROMM_VERSION}.tar.xz && \
     cd cairomm-${CAIROMM_VERSION} && \
