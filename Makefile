@@ -1,5 +1,5 @@
 build-clang:
-	docker build clang --tag henne90gen/clang:14 --tag henne90gen/clang:latest
+	docker build clang --tag henne90gen/clang:15 --tag henne90gen/clang:latest
 build-gtk:
 	docker build gtk --tag henne90gen/gtk:4.8 --tag henne90gen/gtk:latest
 build-opengl:

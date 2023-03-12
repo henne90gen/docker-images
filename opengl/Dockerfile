@@ -1,4 +1,4 @@
-FROM henne90gen/clang:14
+FROM henne90gen/clang:15
 
 RUN apt-get install -y \
     libgl1-mesa-dev \
