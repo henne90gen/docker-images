@@ -4,6 +4,7 @@ ARG LLVM_VERSION=18
 ENV LLVM_VERSION=${LLVM_VERSION}
 
 RUN apt-get update -y && \
+    apt-get dist-upgrade -y && \
     apt-get install -y cmake ninja-build git wget lsb-release software-properties-common gnupg apt-transport-https ca-certificates && \
     wget -q https://apt.llvm.org/llvm.sh && \
     chmod +x llvm.sh && \

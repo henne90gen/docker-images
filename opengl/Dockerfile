@@ -1,6 +1,8 @@
-FROM henne90gen/clang:15
+FROM henne90gen/clang:18
 
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get install -y \
     libgl1-mesa-dev \
     libglu1-mesa-dev \
     freeglut3-dev \
