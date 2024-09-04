@@ -1,17 +1,25 @@
-#include <gtkmm.h>
+#include <gtk/gtk.h>
 
-class MyWindow : public Gtk::Window {
-public:
-  MyWindow();
-};
-
-MyWindow::MyWindow() {
-  set_title("Basic application");
-  set_default_size(200, 200);
+static void on_button_clicked(GtkWidget *widget, gpointer data)
+{
+  g_print("Button clicked!\n");
+  gtk_window_destroy(GTK_WINDOW(data));
 }
 
-int main(int argc, char *argv[]) {
-  auto app = Gtk::Application::create("org.gtkmm.examples.base");
+static void activate(GtkApplication *app, gpointer user_data)
+{
+  GtkWidget *window = gtk_application_window_new(app);
+  gtk_window_set_title(GTK_WINDOW(window), "Minimal GTK4 Example");
+  gtk_window_set_default_size(GTK_WINDOW(window), 400, 300);
+  GtkWidget *button = gtk_button_new_with_label("Click to Close");
+  g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), window);
+  gtk_window_set_child(GTK_WINDOW(window), button);
+  gtk_window_present(GTK_WINDOW(window));
+}
 
-  return app->make_window_and_run<MyWindow>(argc, argv);
+int main(int argc, char *argv[])
+{
+  GtkApplication *app = gtk_application_new("com.example.GtkApp", G_APPLICATION_DEFAULT_FLAGS);
+  g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+  return g_application_run(G_APPLICATION(app), argc, argv);
 }
