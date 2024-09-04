@@ -1,4 +1,4 @@
-FROM henne90gen/clang:15
+FROM henne90gen/clang:latest
 
 RUN clang --version
 

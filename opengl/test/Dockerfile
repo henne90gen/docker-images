@@ -1,4 +1,4 @@
-FROM henne90gen/opengl:3.1
+FROM henne90gen/opengl:latest
 
 COPY main.cpp main.cpp
 RUN clang++ main.cpp -lGL -lGLU -lglut
