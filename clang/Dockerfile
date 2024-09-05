@@ -10,7 +10,7 @@ RUN apt-get update -y && \
     chmod +x llvm.sh && \
     ./llvm.sh $LLVM_VERSION && \
     rm llvm.sh && \
-    apt-get install -y libomp-$LLVM_VERSION-dev && \
+    apt-get install -y libomp-$LLVM_VERSION-dev libc++-$LLVM_VERSION-dev && \
     apt-get purge -y wget lsb-release software-properties-common gnupg apt-transport-https && \
     apt-get autoremove -y && \
     ln -s /usr/bin/clang-$LLVM_VERSION /usr/bin/clang && \
