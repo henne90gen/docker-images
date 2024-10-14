@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240812-slim
+FROM debian:trixie-20240926
 
 ARG LLVM_VERSION=18
 ENV LLVM_VERSION=${LLVM_VERSION}
