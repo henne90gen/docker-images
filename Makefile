@@ -8,6 +8,8 @@ build-webdav:
 	docker build webdav --tag henne90gen/webdav:3.12.7 --tag henne90gen/webdav:latest
 build-netcup-dyndns:
 	docker build netcup-dyndns --tag henne90gen/netcup-dyndns:1.2 --tag henne90gen/netcup-dyndns:latest
+build-osmtools:
+	docker build osmtools --tag henne90gen/osmtools:1.0 --tag henne90gen/osmtools:latest
 
 test-clang:
 	docker build clang/test
@@ -28,3 +30,5 @@ push-webdav:
 	docker push henne90gen/webdav -a
 push-netcup-dyndns:
 	docker push henne90gen/netcup-dyndns -a
+push-osmtools:
+	docker push henne90gen/osmtools -a
