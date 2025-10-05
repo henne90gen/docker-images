@@ -5,13 +5,13 @@ ENV LLVM_VERSION=${LLVM_VERSION}
 
 RUN apt-get update -y && \
     apt-get dist-upgrade -y && \
-    apt-get install -y cmake ninja-build git wget lsb-release software-properties-common gnupg apt-transport-https ca-certificates && \
+    apt-get install -y cmake ninja-build git wget lsb-release gnupg apt-transport-https ca-certificates && \
     wget -q https://apt.llvm.org/llvm.sh && \
     chmod +x llvm.sh && \
     ./llvm.sh $LLVM_VERSION && \
     rm llvm.sh && \
     apt-get install -y libomp-$LLVM_VERSION-dev libc++-$LLVM_VERSION-dev && \
-    apt-get purge -y wget lsb-release software-properties-common gnupg apt-transport-https && \
+    apt-get purge -y wget lsb-release gnupg apt-transport-https && \
     apt-get autoremove -y && \
     ln -s /usr/bin/clang-$LLVM_VERSION /usr/bin/clang && \
     ln -s /usr/bin/clang++-$LLVM_VERSION /usr/bin/clang++ && \
