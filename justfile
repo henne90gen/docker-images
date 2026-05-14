@@ -17,7 +17,7 @@ build-osmtools:
     docker build osmtools --tag henne90gen/osmtools:1.0 --tag henne90gen/osmtools:latest
 
 build-forgejo-runner-image:
-    docker build forgejo-runner-image --tag henne90gen/forgejo-runner-image:26.1.0-bookworm --tag henne90gen/forgejo-runner-image:latest
+    docker build forgejo-runner-image --tag henne90gen/forgejo-runner-image:3.23.4 --tag henne90gen/forgejo-runner-image:latest
 
 test-clang:
     docker build clang/test

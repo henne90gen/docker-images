@@ -33,6 +33,8 @@ jobs:
     needs: clang
 
     steps:
+      - uses: extractions/setup-just@v4
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -56,6 +58,8 @@ jobs:
     needs: clang
 
     steps:
+      - uses: extractions/setup-just@v4
+
       - name: Checkout code
         uses: actions/checkout@v2
 
