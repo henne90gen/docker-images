@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: extractions/setup-just@v4
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -17,13 +19,13 @@ jobs:
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
       - name: Build Image
-        run: make build-clang
+        run: just build-clang
 
       - name: Test Image
-        run: make test-clang
+        run: just test-clang
 
       - name: Push Image
-        run: make push-clang
+        run: just push-clang
 
   opengl:
     name: "Build and Upload OpenGL Image"
@@ -40,13 +42,13 @@ jobs:
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
       - name: Build Image
-        run: make build-opengl
+        run: just build-opengl
 
       - name: Test Image
-        run: make test-opengl
+        run: just test-opengl
 
       - name: Push Image
-        run: make push-opengl
+        run: just push-opengl
 
   gtk:
     name: "Build and Upload GTK Image"
@@ -63,10 +65,10 @@ jobs:
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
       - name: Build Image
-        run: make build-gtk
+        run: just build-gtk
 
       - name: Test Image
-        run: make test-gtk
+        run: just test-gtk
 
       - name: Push Image
-        run: make push-gtk
+        run: just push-gtk

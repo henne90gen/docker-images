@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: extractions/setup-just@v4
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -17,7 +19,7 @@ jobs:
         run: docker login -u henne90gen -p $DOCKER_PASSWORD
 
       - name: Build Image
-        run: make build-osmtools
+        run: just build-osmtools
 
       - name: Push Image
-        run: make push-osmtools
+        run: just push-osmtools
