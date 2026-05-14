@@ -4,6 +4,7 @@ FROM henne90gen/forgejo-runner-image:latest
 RUN java -version
 COPY gradle-test /gradle-test
 WORKDIR /gradle-test
+RUN chmod +x ./gradlew
 RUN ./gradlew run
 
 # Go Test
