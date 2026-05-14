@@ -10,6 +10,8 @@ build-netcup-dyndns:
 	docker build netcup-dyndns --tag henne90gen/netcup-dyndns:1.2 --tag henne90gen/netcup-dyndns:latest
 build-osmtools:
 	docker build osmtools --tag henne90gen/osmtools:1.0 --tag henne90gen/osmtools:latest
+build-forgejo-runner-image:
+	docker build forgejo-runner-image --tag henne90gen/forgejo-runner-image:26.1.0-bookworm --tag henne90gen/forgejo-runner-image:latest
 
 test-clang:
 	docker build clang/test
@@ -32,3 +34,5 @@ push-netcup-dyndns:
 	docker push henne90gen/netcup-dyndns -a
 push-osmtools:
 	docker push henne90gen/osmtools -a
+push-forgejo-runner-image:
+	docker push henne90gen/forgejo-runner-image -a
