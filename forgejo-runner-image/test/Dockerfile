@@ -1,5 +1,8 @@
 FROM henne90gen/forgejo-runner-image:latest
 
+RUN just --version
+RUN git version
+
 # Gradle Test
 RUN java -version
 COPY gradle-test /gradle-test

@@ -11,4 +11,5 @@ RUN apk add --no-cache \
     go \
     openjdk21 \
     gradle \
+    git \
     just
