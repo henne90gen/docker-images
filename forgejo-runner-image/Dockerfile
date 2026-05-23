@@ -10,4 +10,5 @@ RUN apk add --no-cache \
     yarn \
     go \
     openjdk21 \
+    gradle \
     just
