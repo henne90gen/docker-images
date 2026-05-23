@@ -9,4 +9,5 @@ RUN apk add --no-cache \
     npm \
     yarn \
     go \
-    openjdk21
+    openjdk21 \
+    just
