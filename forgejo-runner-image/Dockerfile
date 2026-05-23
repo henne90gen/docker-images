@@ -118,8 +118,8 @@ RUN apk upgrade && \
 
 # Android build-tools and platform from https://github.com/alvr/alpine-android/blob/master/docker/android.Dockerfile
 
-ENV BUILD_TOOLS="35.0.1"
-ENV TARGET_SDK="35"
+ENV BUILD_TOOLS="36.1.0"
+ENV TARGET_SDK="36"
 
 ENV PATH=$PATH:${ANDROID_SDK_ROOT}/build-tools/${BUILD_TOOLS}
 
