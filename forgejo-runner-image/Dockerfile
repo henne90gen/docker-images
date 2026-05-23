@@ -1,17 +1,35 @@
-FROM alpine:3.23.4
+FROM debian:12.14
 
-# Install Node.js, Docker CLI, Go and OpenJDK 21
-RUN apk add --no-cache \
+# Install Node.js, Docker CLI and OpenJDK 21
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
-    docker-cli \
+    docker.io \
     nodejs \
     npm \
-    yarn \
-    go \
-    openjdk21 \
     git \
-    just
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Add Adoptium repository and install OpenJDK 21 (Temurin)
+RUN curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public \
+        | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb bookworm main" \
+        > /etc/apt/sources.list.d/adoptium.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends temurin-21-jdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Go from the official release
+ENV GO_VERSION=1.26.3
+RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /usr/local -xz
+ENV PATH=$PATH:/usr/local/go/bin
+
+# Install just via the official installer
+RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+
+# Install yarn via npm
+RUN npm install -g yarn
 
 # Gradle Installation from https://github.com/gradle/docker-gradle/blob/master/jdk21-alpine/Dockerfile
 
@@ -19,8 +37,8 @@ ENV GRADLE_HOME=/opt/gradle
 
 RUN set -o errexit -o nounset \
     && echo "Adding gradle user and group" \
-    && addgroup --system --gid 1000 gradle \
-    && adduser --system --ingroup gradle --uid 1000 --shell /bin/ash gradle \
+    && addgroup --gid 1000 gradle \
+    && adduser --ingroup gradle --uid 1000 --shell /bin/bash --home /home/gradle gradle \
     && mkdir /home/gradle/.gradle \
     && chown -R gradle:gradle /home/gradle \
     && chmod -R o+rwx /home/gradle \
@@ -33,20 +51,22 @@ VOLUME /home/gradle/.gradle
 WORKDIR /home/gradle
 
 RUN set -o errexit -o nounset \
-    && apk add --no-cache \
+    && apt-get update && apt-get install -y --no-install-recommends \
       # common utilities
       make \
       curl \
       wget \
       tar \
+      unzip \
       \
       # VCSes
-      breezy \
-      py3-tzlocal \
+      python3-breezy \
+      python3-tzlocal \
       git \
       git-lfs \
       mercurial \
       subversion \
+    && rm -rf /var/lib/apt/lists/* \
     \
     && echo "Testing common utilities" \
     && which awk \
@@ -101,24 +121,34 @@ ENV ANDROID_SDK_ROOT="/opt/sdk"
 ENV ANDROID_HOME=${ANDROID_SDK_ROOT}
 ENV PATH=$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION}/bin:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_SDK_ROOT}/extras/google/instantapps
 
-RUN apk upgrade && \
-    apk add --no-cache bash curl git git-lfs unzip wget coreutils openssh-client tar && \
-    rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    mkdir -p ${ANDROID_SDK_ROOT} && \
-    busybox unzip <(wget -qO- https://dl.google.com/android/repository/commandlinetools-linux-${SDK_TOOLS_VERSION}_latest.zip) -qK -d ${ANDROID_SDK_ROOT}/cmdline-tools && \
-    mv ${ANDROID_SDK_ROOT}/cmdline-tools/* ${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION} && \
-    mkdir -p ~/.android/ && \
-    touch ~/.android/repositories.cfg && \
-    chmod +x ${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION}/bin/* && \
-    yes | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses && \
-    sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --install "platform-tools" "extras;google;instantapps"
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash \
+    curl \
+    git \
+    git-lfs \
+    unzip \
+    wget \
+    coreutils \
+    openssh-client \
+    tar \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* \
+    && mkdir -p ${ANDROID_SDK_ROOT} \
+    && wget -q -O /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${SDK_TOOLS_VERSION}_latest.zip \
+    && unzip -q -K /tmp/cmdline-tools.zip -d ${ANDROID_SDK_ROOT}/cmdline-tools \
+    && mv ${ANDROID_SDK_ROOT}/cmdline-tools/cmdline-tools ${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION} \
+    && rm /tmp/cmdline-tools.zip \
+    && mkdir -p ~/.android/ \
+    && touch ~/.android/repositories.cfg \
+    && chmod +x ${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION}/bin/* \
+    && yes | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses \
+    && sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --install "platform-tools" "extras;google;instantapps"
 
 # --------------------------------------------------
 
 # Android build-tools and platform from https://github.com/alvr/alpine-android/blob/master/docker/android.Dockerfile
 
-ENV BUILD_TOOLS="36.1.0"
+ENV BUILD_TOOLS="36.0.0"
 ENV TARGET_SDK="36"
 
 ENV PATH=$PATH:${ANDROID_SDK_ROOT}/build-tools/${BUILD_TOOLS}
