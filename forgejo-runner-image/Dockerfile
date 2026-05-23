@@ -13,7 +13,7 @@ RUN apk add --no-cache \
     git \
     just
 
-# Taken from https://github.com/gradle/docker-gradle/blob/master/jdk21-alpine/Dockerfile
+# Gradle Installation from https://github.com/gradle/docker-gradle/blob/master/jdk21-alpine/Dockerfile
 
 ENV GRADLE_HOME=/opt/gradle
 
@@ -91,3 +91,38 @@ RUN set -o errexit -o nounset \
 USER root
 
 # --------------------------------------------------
+
+# Android SDK Installation from https://github.com/alvr/alpine-android/blob/master/docker/base.Dockerfile
+
+ENV CMDLINE_VERSION="20.0"
+ENV SDK_TOOLS_VERSION="14742923"
+
+ENV ANDROID_SDK_ROOT="/opt/sdk"
+ENV ANDROID_HOME=${ANDROID_SDK_ROOT}
+ENV PATH=$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION}/bin:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_SDK_ROOT}/extras/google/instantapps
+
+RUN apk upgrade && \
+    apk add --no-cache bash curl git git-lfs unzip wget coreutils openssh-client tar && \
+    rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/* && \
+    mkdir -p ${ANDROID_SDK_ROOT} && \
+    busybox unzip <(wget -qO- https://dl.google.com/android/repository/commandlinetools-linux-${SDK_TOOLS_VERSION}_latest.zip) -qK -d ${ANDROID_SDK_ROOT}/cmdline-tools && \
+    mv ${ANDROID_SDK_ROOT}/cmdline-tools/* ${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION} && \
+    mkdir -p ~/.android/ && \
+    touch ~/.android/repositories.cfg && \
+    chmod +x ${ANDROID_SDK_ROOT}/cmdline-tools/${CMDLINE_VERSION}/bin/* && \
+    yes | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses && \
+    sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --install "platform-tools" "extras;google;instantapps"
+
+# --------------------------------------------------
+
+# Android build-tools and platform from https://github.com/alvr/alpine-android/blob/master/docker/android.Dockerfile
+
+ENV BUILD_TOOLS="35.0.1"
+ENV TARGET_SDK="35"
+
+ENV PATH=$PATH:${ANDROID_SDK_ROOT}/build-tools/${BUILD_TOOLS}
+
+# Install SDK Packages
+RUN sdkmanager --sdk_root="${ANDROID_SDK_ROOT}" --install "build-tools;${BUILD_TOOLS}" "platforms;android-${TARGET_SDK}" && \
+    sdkmanager --sdk_root="${ANDROID_SDK_ROOT}" --uninstall emulator || true

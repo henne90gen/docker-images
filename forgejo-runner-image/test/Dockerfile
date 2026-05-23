@@ -12,6 +12,7 @@ RUN ./gradlew --version
 RUN ./gradlew run
 RUN gradle --version
 RUN gradle run
+RUN sdkmanager --version
 
 # Go Test
 RUN go version
