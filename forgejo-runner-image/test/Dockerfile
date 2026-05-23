@@ -5,7 +5,10 @@ RUN java -version
 COPY gradle-test /gradle-test
 WORKDIR /gradle-test
 RUN chmod +x ./gradlew
+RUN ./gradlew --version
 RUN ./gradlew run
+RUN gradle --version
+RUN gradle run
 
 # Go Test
 RUN go version
