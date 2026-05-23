@@ -16,8 +16,8 @@ build-netcup-dyndns:
 build-osmtools:
     docker build osmtools --tag henne90gen/osmtools:1.0 --tag henne90gen/osmtools:latest
 
-build-forgejo-runner-image:
-    docker build forgejo-runner-image --tag henne90gen/forgejo-runner-image:3.23.4 --tag henne90gen/forgejo-runner-image:latest
+build-forgejo-runner:
+    docker build forgejo-runner --tag henne90gen/forgejo-runner:12.14 --tag henne90gen/forgejo-runner:latest
 
 test-clang:
     docker build clang/test
@@ -28,8 +28,8 @@ test-gtk:
 test-opengl:
     docker build opengl/test
 
-test-forgejo-runner-image:
-    docker build forgejo-runner-image/test
+test-forgejo-runner:
+    docker build forgejo-runner/test
 
 test-webdav:
     ./webdav/test/test.sh
@@ -52,5 +52,5 @@ push-netcup-dyndns:
 push-osmtools:
     docker push henne90gen/osmtools -a
 
-push-forgejo-runner-image:
-    docker push henne90gen/forgejo-runner-image -a
+push-forgejo-runner:
+    docker push henne90gen/forgejo-runner -a
