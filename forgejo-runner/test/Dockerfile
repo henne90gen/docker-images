@@ -1,4 +1,4 @@
-FROM henne90gen/forgejo-runner-image:latest
+FROM henne90gen/forgejo-runner:latest
 
 RUN just --version
 RUN git version
