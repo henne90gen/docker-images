@@ -26,3 +26,6 @@ COPY frontend-test /frontend-test
 WORKDIR /frontend-test
 RUN yarn install --frozen-lockfile
 RUN yarn build
+
+# Ansible
+RUN ansible --version

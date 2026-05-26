@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     docker.io \
     git \
     gnupg \
+    ansible \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js 24 LTS from NodeSource
